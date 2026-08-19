@@ -1,0 +1,42 @@
+package com.techtactix.app.service;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.jspecify.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.techtactix.app.model.Product;
+import com.techtactix.app.repo.ProductRepo;
+
+@Service
+public class ProductService {
+
+	@Autowired
+	private ProductRepo productRepo;
+	
+	
+	public List<Product> getAllProducts(){
+		return productRepo.findAll();
+	}
+
+
+	public Product getProductById(int id) {
+		return productRepo.findById(id).orElse(new Product(-1));
+		
+	}
+
+
+	public Product addProduct(Product product, MultipartFile image) throws IOException {
+		
+		product.setImgName(image.getOriginalFilename());
+		product.setImgType(image.getContentType());
+		product.setImgData(image.getBytes());
+		
+		return productRepo.save(product);
+	}
+	
+	
+}
