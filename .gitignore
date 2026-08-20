@@ -33,3 +33,9 @@ build/
 .vscode/
 
 src/main/resources/application.properties
+
+React Frontend V2/dist/
+
+**/dist/
+.env
+__MACOSX/
